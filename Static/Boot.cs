@@ -24,7 +24,7 @@ namespace App.Static
             //  > Inicializa o Marvin.
             //  - Carrega a lista de RUs da UFPR.
             Log.WriteLine(Log.Type.System, "Carregando lista de RUs . . .");
-            List<Database.RU> _rus = await new Database.RU().LoadAll();
+            Global.RUs_List = await new Database.RU().LoadAll();
 
             //  > Inicializa os eventos em tempo de execução.
             Global.Execute += Runtime.Events.NewDayUpdate.EventCall;

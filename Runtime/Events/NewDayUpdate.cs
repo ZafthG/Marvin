@@ -8,16 +8,18 @@
         /// <summary>
         /// Chama os eventos que devem ser executados quando um novo dia for iniciado.
         /// </summary>
-        public static Task EventCall ()
+        public async static Task EventCall ()
         {
-            if (DateTime.Now.ToUniversalTime().AddHours(-3).Date != Static.Global.Today.Date)
-                return Task.CompletedTask;
+            if (DateTime.Now.ToUniversalTime().AddHours(-3).Date == Static.Global.LastDayUpdate.Date)
+                return;
 
-            Static.Global.Today = DateTime.Now.ToUniversalTime().AddHours(-3).Date;
+            Static.Global.LastDayUpdate = DateTime.Now.ToUniversalTime().AddHours(-3).Date;
 
-            Console.WriteLine($"{DateTime.Now.ToUniversalTime().AddHours(-3).Date} == {Static.Global.Today.Date}");
+            Console.WriteLine($"{DateTime.Now.ToUniversalTime().AddHours(-3).Date} == {Static.Global.LastDayUpdate.Date}");
 
-            return Task.CompletedTask;
+            await Bot.Events.Messages.RUToday.Call();
+
+            return;
         }
     }
 }

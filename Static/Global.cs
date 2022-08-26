@@ -8,7 +8,7 @@
         /// <summary>
         /// Seta o dia de hoje.
         /// </summary>
-        public static DateTime Today = DateTime.Now.ToUniversalTime().AddHours(-3).Date;
+        public static DateTime LastDayUpdate = DateTime.MinValue;
         /// <summary>
         /// Eventos que devem ser executados no Runtime do programa.
         /// </summary>
@@ -17,5 +17,10 @@
         /// Estrutura base de conexão do Marvin.
         /// </summary>
         public static Bot.DiscordBase Marvin = new ();
+
+        /// <summary>
+        /// Lista de RUs com base no banco de dados.
+        /// </summary>
+        public static List<Database.RU> RUs_List= new ();
     }
 }
