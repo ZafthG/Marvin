@@ -10,6 +10,10 @@
         /// </summary>
         public static DateTime LastDayUpdate = DateTime.MinValue;
         /// <summary>
+        /// Verificações de validação do laço global.
+        /// </summary>
+        public static LoopItem? Verify = null;
+        /// <summary>
         /// Eventos que devem ser executados no Runtime do programa.
         /// </summary>
         public static LoopItem? Execute = null;

@@ -27,7 +27,7 @@ namespace App.Static
             Global.RUs_List = await new Database.RU().LoadAll();
 
             //  > Inicializa os eventos em tempo de execução.
-            Global.Execute += Runtime.Events.NewDayUpdate.EventCall;
+            Global.Verify += Runtime.Actions.NewDayUpdate.EventCall;
 
             //  > Conecta o Marvin ao Discord.
             Log.WriteLine(Log.Type.System, "Conectando 'Marvin' ao Discord . . .");
@@ -36,7 +36,15 @@ namespace App.Static
             //  > Inicia as operações de Runtime.
             while (true)
             {
-                if (Global.Execute == null) continue;
+                //  O Verify NUNCA vai ser nulo.
+                _ = Global.Verify();
+
+                if (Global.Execute == null)
+                {
+                    await Task.Delay(50);
+                    continue;
+                }
+
                 await Global.Execute();
             }
         }
