@@ -79,7 +79,19 @@ namespace App.Bot.Events.Messages
                     //  > Processa cada linha individualmente.
                     for (int i = 0; i < _lines.Length; i += 2)
                     {
-                        Console.WriteLine(_lines[i].InnerHtml);
+                        string _menuIndex = _lines[i].InnerHtml.Replace("<td>", "")
+                            .Replace("<strong>", "")
+                            .Replace("</strong>", "")
+                            .Replace("</td>", "")
+                            .Trim()
+                            .ToUpper()
+                            .Replace(" ", "_")
+                            .Replace("Á", "A")
+                            .Replace("É", "E")
+                            .Replace("Ã", "A")
+                            .Replace("Ç", "C");
+
+                        Console.WriteLine(_menuIndex);
                     }
                 }
                 
