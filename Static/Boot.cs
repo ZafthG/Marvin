@@ -33,6 +33,9 @@ namespace App.Static
             Log.WriteLine(Log.Type.System, "Conectando 'Marvin' ao Discord . . .");
             await Global.Marvin.Login(Environment.GetEnvironmentVariable(Settings.GetDiscord_Token));
 
+            //  > Dá alguns segundos pro bot inicializar.
+            await Task.Delay(5000);
+
             //  > Inicia as operações de Runtime.
             while (true)
             {
