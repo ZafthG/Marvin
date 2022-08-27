@@ -2,7 +2,8 @@
  Bot Marvin para o Dicord.
 <br/>
 <br/>
-Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa compilado:
+Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa compilado:<br/>
+<b>Usar UTF-8</b>.
 <br/>
 ```
 # --------------------------------------------------------------------- 
