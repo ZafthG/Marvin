@@ -175,8 +175,13 @@ namespace App.Bot.Events.Messages
         /// <returns></returns>
         public static async Task Call ()
         {
+            //  > Carrega os menus dos sites do RU.
             Utilits.Log.WriteLine(Utilits.Log.Type.System, "Atualizando informações de cardápio do RU . . .");
             await Process ();
+
+            //  > Envia para o discord.
+            foreach (Database.RU ru in Static.Global.RUs_List)
+                _ = ru.SendRUToday();
         }
     }
 }

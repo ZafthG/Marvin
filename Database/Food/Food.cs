@@ -155,11 +155,11 @@ namespace App.Database
                 }
             }
 
-            //  > Separa dos features das condicionais.
+            //  > Separa dos features as condicionais.
 
 
             //  > Declara como vegano se ..
-            if (!(HasMilk) && !(HaveEggs) && !(HaveAnimalProducts)) IsVegan = true;
+            if (!(HasMilk) && !(HaveEggs) && !(HaveAnimalProducts) && !(HaveHoney)) IsVegan = true;
         }
     }
 }

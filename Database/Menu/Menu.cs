@@ -1,4 +1,5 @@
-﻿namespace App.Database
+﻿using System.Text;
+namespace App.Database
 {
     /// <summary>
     /// Representa um menu de itens de alimentação.
@@ -32,6 +33,43 @@
         public async Task Save()
         {
 
+        }
+
+        /// <summary>
+        /// Constroí o menu em formato organizado.
+        /// </summary>
+        /// <returns>Retorna o menu em string.</returns>
+        public override string ToString()
+        {
+            //  > Construtor para a string de saída.
+            StringBuilder _builder = new ();
+
+            //  > Informa a data da comida.
+            _builder.Append($"***{Date.ToString("dd/MM/yyyy")} - {Date.ToString("dddd").ToUpperInvariant()}***\n");
+            //  > Adiciona as comidas do café da manhã.
+            if (Breakfast != null)
+            {
+                _builder.Append($"\n**CAFÉ DA MANHÃ**\n```");
+                _builder.Append(Breakfast.ToString());
+                _builder.Append("```");
+            }
+            //  > Adiciona as comidas do almoço.
+            if (Lunch != null)
+            {
+                _builder.Append($"\n**ALMOÇO**\n```");
+                _builder.Append(Lunch.ToString());
+                _builder.Append("```");
+            }
+            //  > Adiciona as comidas do jantar.
+            if (Dinner != null)
+            {
+                _builder.Append($"\n**JANTAR**\n```");
+                _builder.Append(Dinner.ToString());
+                _builder.Append("```");
+            }
+
+            //  > Retorna a string construída.
+            return _builder.ToString();
         }
 
         /// <summary>

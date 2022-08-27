@@ -14,8 +14,7 @@ namespace App.Bot
         /// <summary>
         /// Elemento de conexão entre o bot e o Discord.
         /// </summary>
-        private DiscordSocketClient Client { get; set; }
-
+        public DiscordSocketClient Client { get; private set; }
         /// <summary>
         /// Conjunto de funções assíncronas para o processamento de uma mensagem recebida.
         /// </summary>
@@ -69,7 +68,7 @@ namespace App.Bot
         /// <returns>Retorna a mensagem que foi enviada.</returns>
         public async Task<IUserMessage> Send(ulong channel_id, string message)
         {
-            IMessageChannel _channel = (IMessageChannel)await Client.GetChannelAsync(channel_id);
+            IMessageChannel _channel = (IMessageChannel) await Client.GetChannelAsync(channel_id);
             return await Send(_channel, message);
         }
         /// <summary>

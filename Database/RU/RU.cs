@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Text;
 namespace App.Database
 {
     /// <summary>
@@ -32,6 +33,28 @@ namespace App.Database
         /// </summary>
         public Dictionary<DateTime, Menu>? NextDays { get; set; }
 
+        /// <summary>
+        /// Envia o RU de hoje para o respectivo canal associado.
+        /// </summary>
+        /// <returns></returns>
+        public Task SendRUToday ( )
+        {
+            //  > Verifica se o RU de hoje foi declarado.
+            if (TodayMenu == null) return Task.CompletedTask;
+
+            //  > Prepara o envio.
+            StringBuilder _const = new ();
+
+            _const.Append($"Bom dia {Static.Global.Marvin.Client.GetGuild(1009142650156355585).EveryoneRole.Mention}. Hoje teremos o seguinte cardápio por R$ 1.30 no {Name}: \n");
+            _const.Append(TodayMenu.ToString());
+
+            //  > Envia para o discord.
+            _ = Static.Global.Marvin.Send(1009142650709999688, _const.ToString());
+
+            //  > Finaliza.
+            return Task.CompletedTask;
+            
+        }
         /// <summary>
         /// Obtem todos os RU listados no banco de dados.
         /// </summary>

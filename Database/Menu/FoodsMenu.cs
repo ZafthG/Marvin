@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 namespace App.Database
 {
     /// <summary>
@@ -10,6 +11,25 @@ namespace App.Database
         /// Lista de comidas do cardápio.
         /// </summary>
         public List<Food> Foods { get; private set; }
+
+        /// <summary>
+        /// Retorna a lista de comidas organizada para impressão.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            //  > Construtor para a cadeia de caracteres.
+            StringBuilder _const = new ();
+
+            //  > Constroí a cadeia de caracteres.
+            foreach (Food food in Foods)
+            {
+                _const.Append($"\t- {food.Name}\n");
+            }
+
+            //  > Retorna a cadeia montada.
+            return _const.ToString();
+        }
 
         /// <summary>
         /// Instância um novo cardápio de café da manhã.
