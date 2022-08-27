@@ -2,6 +2,9 @@
  Bot Marvin para o Dicord.
 <br/>
 <br/>
+Por padrão o Token do Discord deve ser armazenado me uma variável ambiente com Key ```MARVIN_TOKEN```. Porém, é possível setar outro nome no arquivo 'bot.conf'. <br/>
+Esse arquivo 'bot.conf' deve estar no diretório raiz do programa, caso contrário, teremos um erro
+e uma falha de inicialização.<br/>
 Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa compilado:<br/>
 <b>Usar UTF-8</b>.
 <br/>
