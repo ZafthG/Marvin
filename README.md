@@ -4,7 +4,7 @@
 <br/>
 Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa compilado:
 <br/>
-<code>
+```
 # --------------------------------------------------------------------- 
 #		MARVIN CONF FILE
 # ---------------------------------------------------------------------
@@ -29,4 +29,4 @@ BOT_START_COMMAND .
 #		Fim do arquivo de configurações
 # --------------------------------------------------------------------
 # @'null' -> indica um valor nulo, exemplo: string t = ""
-</code>
+```
