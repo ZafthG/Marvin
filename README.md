@@ -12,7 +12,7 @@ Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa
 #	Por ZafthG (Gabriel Ferreira)
 # ---------------------------------------------------------------------
 
-# Configurações do MySQL
+#   > Configurações do MySQL
 DB_SERVER localhost
 DB_USER root
 DB_PASS @'null'
@@ -20,10 +20,12 @@ DB_NAME marvin_db
 
 DB_CONN_TRIES 5
 
-# Configurações de variáveis de ambiente
+#   > Configurações de variáveis de ambiente
+# O Token do discord deve ser armazenado em uma variável de ambiente
+# e o nome dessa variável deve ser informado aqui.
 E_V_MARVIN_TK MARVIN_TOKEN
 
-# Configurações de comando
+#   > Configurações de comando
 BOT_START_COMMAND .
 
 # --------------------------------------------------------------------
