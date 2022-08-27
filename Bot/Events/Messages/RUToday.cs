@@ -78,12 +78,20 @@ namespace App.Bot.Events.Messages
                 ru.TodayMenu = null;
                 //  Reseta a lista de RUs para Refresh.
                 Runtime.Events.RURefresh.RefreshRUs = new ();
+                //  Informa se hoje esta na lista de análise.
+                bool OkToday = false;
 
                 //  > Pega a tabela do dia.
                 foreach (KeyValuePair<DateTime, int> date in _datesIndex)
                 {
+                    //  > Ignora menus anteriores a hoje.
+                    if (date.Key.Date.Ticks < DateTime.Now.ToUniversalTime().AddHours(-3).Date.Ticks)
+                        continue;
                     //  > Isso indicaria um overflow do índice da matrix de tabelas.
                     if (date.Value >= _tables.Length) break;
+                    //  > Evita o bug de exclusão para dias sem cardápio.
+                    if (date.Key.Date == DateTime.Now.ToUniversalTime().AddHours(-3).Date)
+                        OkToday = true;
                     //  > Pega as linhas da tabela.
                     HtmlNode[] _lines = _tables[date.Value].QuerySelectorAll("tbody tr").ToArray();
 
@@ -118,27 +126,7 @@ namespace App.Bot.Events.Messages
                         _content = Regex.Replace(_content, @"<br>", "\n");
                         //  > Seleciona as comidas dentre o restante.
                         string[] _reference = _content.Split('\n');
-                        /*List<string> _reference = new();
-                        foreach (string food in _pre_ref)
-                        {
-                            //  > Verifica se a string que representa uma comida não está vazia.
-                            if (string.IsNullOrEmpty(food) || string.IsNullOrWhiteSpace(food))
-                                continue;
 
-                            //  > Trata a cadeia de caracteres para normalizar a informação.
-                            string _food = food;
-                            //  - Caso tenha ':', splita e pega a segunda parte.
-                            string[] _parts = _food.Split(':');
-                            if (_parts.Length > 1)
-                                _food = _parts[1];
-                            //  - Remove espaços desnecessários.
-                            _food = _food.Trim()
-                            //  - Da Uppcase em tudo.
-                                .ToUpper();
-
-                            //  > Adiciona essa comida a lista de comidas para passar pra próxima sessão..
-                            _reference.Add(_food.Trim());
-                        }*/
                         //  > Constroí o menu com base na tag anterior.
                         if (_menuIndex == "CAFE_DA_MANHA")
                             _menu.Breakfast = new Database.FoodsMenu(_reference);
@@ -160,7 +148,7 @@ namespace App.Bot.Events.Messages
 
                 //  > Verifica se o menu do dia foi identificado. Caso contrário exibe um erro
                 //  e da um ReCall no programa após 1 hora.
-                if (ru.TodayMenu == null)
+                if ((ru.TodayMenu == null) && OkToday)
                 {
                     Utilits.Log.WriteLine(Utilits.Log.Type.Error, $"Menu do dia para {ru.Tag}[{ru.ID}] não foi encontrado! Tentando novamente em 30 minutos.");
                     await Task.Delay(new TimeSpan(0, 30, 0));
@@ -168,7 +156,7 @@ namespace App.Bot.Events.Messages
                         await Call();
                     errors++;
                 }
-                else
+                else if ((ru.TodayMenu != null ))
                     _ = ru.TodayMenu.Save();
 
                 //  > Verifica se foi validado os menus dos próximos dias.
