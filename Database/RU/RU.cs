@@ -24,6 +24,15 @@ namespace App.Database
         public string URL { get; private set; }
 
         /// <summary>
+        /// Menu de hoje.
+        /// </summary>
+        public Menu? TodayMenu { get; set; }
+        /// <summary>
+        /// Menu dos próximos dias.
+        /// </summary>
+        public Dictionary<DateTime, Menu>? NextDays { get; set; }
+
+        /// <summary>
         /// Obtem todos os RU listados no banco de dados.
         /// </summary>
         /// <returns></returns>
@@ -41,7 +50,7 @@ namespace App.Database
                 try
                 {
                     //  > Abre a conexão MySQL e estrutura de comando atrelada a conexão MySQL.
-                    MySqlCommand _command = new MySqlCommand(_sqlCommand, await Open());
+                    MySqlCommand _command = new (_sqlCommand, await Open());
 
                     //  > Executa a consulta.
                     System.Data.Common.DbDataReader _reader = await _command.ExecuteReaderAsync();

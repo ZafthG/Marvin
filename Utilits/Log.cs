@@ -39,7 +39,7 @@ namespace App.Utilits
         public static void Write(Type logType, string message)
         {
             Console.ForegroundColor = GetConsoleColor(logType);
-            Console.Write(message);
+            Console.Write($"[{logType}]: {message}");
             Console.ForegroundColor = GetConsoleColor(Type.Default);
         }
         /// <summary>

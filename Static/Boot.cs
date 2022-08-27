@@ -21,17 +21,17 @@ namespace App.Static
             Log.WriteLine(Log.Type.System, "Carregando arquivo de configurações . . .");
             await Settings.Load();
 
-            //  > Inicializa o Marvin.
-            //  - Carrega a lista de RUs da UFPR.
-            Log.WriteLine(Log.Type.System, "Carregando lista de RUs . . .");
-            Global.RUs_List = await new Database.RU().LoadAll();
-
             //  > Inicializa os eventos em tempo de execução.
             Global.Verify += Runtime.Actions.NewDayUpdate.EventCall;
 
             //  > Conecta o Marvin ao Discord.
             Log.WriteLine(Log.Type.System, "Conectando 'Marvin' ao Discord . . .");
             await Global.Marvin.Login(Environment.GetEnvironmentVariable(Settings.GetDiscord_Token));
+
+            //  > Inicializa o Marvin.
+            //  - Carrega a lista de RUs da UFPR.
+            Log.WriteLine(Log.Type.System, "Carregando lista de RUs . . .");
+            Global.RUs_List = await new Database.RU().LoadAll();
 
             //  > Dá alguns segundos pro bot inicializar.
             await Task.Delay(5000);

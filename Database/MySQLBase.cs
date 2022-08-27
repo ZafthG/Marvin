@@ -18,10 +18,10 @@ namespace App.Database
         protected void Close()
         {
             if (Connection == null) return;
-            if (Connection.State == System.Data.ConnectionState.Closed) return;
             try
             {
                 Connection.Close();
+                Utilits.Log.WriteLine(Utilits.Log.Type.Database, $"Conexão MySQL encerrada em {DateTime.Now.ToUniversalTime()}");
             }
             catch (MySqlException error)
             {
