@@ -2,6 +2,11 @@
  Bot Marvin para o Dicord.
 
 Segue exemplo para o arquivo 'bot.conf' que deve estar na pasta raiz do programa compilado:
+\# ---------------------------------------------------------------------
+\#		MARVIN CONF FILE
+\# ---------------------------------------------------------------------
+\#	Por ZafthG (Gabriel Ferreira)
+\# ---------------------------------------------------------------------
 
 \# Configurações do MySQL
 DB_SERVER localhost
@@ -20,4 +25,4 @@ BOT_START_COMMAND .
 \# --------------------------------------------------------------------
 \#		Fim do arquivo de configurações
 \# --------------------------------------------------------------------
-\# @'null' -> indica um valor nulo, exemplo: ""
+\# @'null' -> indica um valor nulo, exemplo: string t = ""
