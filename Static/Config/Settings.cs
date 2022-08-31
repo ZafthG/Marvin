@@ -50,8 +50,8 @@ namespace App.Static
         /// <summary>
         /// Obtém o conjunto de caracteres para o início de uma mensagem de comando.
         /// </summary>
-        public static string GetBot_StartCommand { get {
-                return settings["BOT_START_COMMAND"];
+        public static ulong GetBot_Id { get {
+                return Convert.ToUInt64(settings["BOT_ID"]);
         } }
 
         /// <summary>

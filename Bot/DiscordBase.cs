@@ -55,34 +55,20 @@ namespace App.Bot
         /// <param name="message">Mensage recebida.</param>
         private async Task MessageReceive (SocketMessage message)
         {
-            if (!message.Content.StartsWith(Static.Settings.GetBot_StartCommand)) return;
-            if (Process == null) return;
-            await Process(message);
+            //  > Verifica se a mensagem menciona o Marvin.
+            foreach (SocketUser user in message.MentionedUsers)
+            {
+                if (user.Id == Static.Settings.GetBot_Id)
+                {
+                    //  > Se mencionar o marvin, executa os processos posteriores.
+                    if (Process == null) return;
+                    await Process(message);
+
+                    break;
+                }
+            }
         }
 
-        /// <summary>
-        /// Envia uma mensagem para um canal de mensagem específico.
-        /// </summary>
-        /// <param name="channel">Canal de mensagem.</param>
-        /// <param name="message">Mensagem a ser enviada.</param>
-        /// <returns>Retorna a mensagem que foi enviada.</returns>
-        public static async Task<IUserMessage> Send(IMessageChannel channel, string message)
-        {
-            return await channel.SendMessageAsync(message);
-        }
-
-        /// <summary>
-        /// Envia uma mensagem para um canal de mensagem específico.
-        /// </summary>
-        /// <param name="channel_id">ID do canal.</param>
-        /// <param name="message">Mensagem a ser enviada.</param>
-        /// <returns>Retorna a mensagem que foi enviada.</returns>
-        public async Task<IUserMessage> Send(ulong channel_id, string message)
-        {
-            //  > Pega o canal.
-            IMessageChannel _channel = (IMessageChannel) await Client.GetChannelAsync(channel_id);
-            return await Send(_channel, message);
-        }
         /// <summary>
         /// Realiza a conexão entre o Bot e o Discord.
         /// </summary>
