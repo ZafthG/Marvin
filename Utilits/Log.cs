@@ -17,6 +17,10 @@ namespace App.Utilits
     /// </summary>
     internal static class Log
     {
+        // ---------------------------------------------------------------------------------------------------- //
+        //      Listas de dados do Log.                                                                         //  
+        #region Enum
+
         /// <summary>
         /// Tipo de mensagem de log..
         /// </summary>
@@ -25,14 +29,19 @@ namespace App.Utilits
             System,
             Database,
             Bot,
+            BotMessage,
             BotException,
             Waring,
             Error,
             Default
         }
-        /// <summary>
-        /// Imprime uma linha de mensagem.
-        /// </summary>
+        // ---------------------------------------------------------------------------------------------------- //
+        #endregion
+        // ---------------------------------------------------------------------------------------------------- //
+        //      Métodos sem retorno de Log.cs.                                                                  //  
+        #region Methods
+
+        /// <summary> Imprime uma linha de mensagem. </summary>
         /// <param name="logType">Tipo de mensagem de log.</param>
         /// <param name="message">Mensagem a ser adicionada ao log.</param>
         public static void WriteLine(Type logType, string message)
@@ -42,9 +51,7 @@ namespace App.Utilits
             sb.Append('\n');
             Write(logType, sb.ToString());
         }
-        /// <summary>
-        /// Escreve uma mensagem no console.
-        /// </summary>
+        /// <summary> Escreve uma mensagem no console. </summary>
         /// <param name="logType">Tipo de mensagem.</param>
         /// <param name="message">Mensagem a ser adicionada ao log.</param>
         public static void Write(Type logType, string message)
@@ -53,9 +60,10 @@ namespace App.Utilits
             Console.Write($"[{logType}]: {message}");
             Console.ForegroundColor = GetConsoleColor(Type.Default);
         }
-        /// <summary>
-        /// Adquire a cor de texto para a escrita do console.
-        /// </summary>
+
+        #endregion
+
+        /// <summary> Adquire a cor de texto para a escrita do console. </summary>
         /// <param name="logType">Tipo de mensagem de log.</param>
         /// <returns>Retorna a cor do console.</returns>
         private static ConsoleColor GetConsoleColor(Type logType)
@@ -72,6 +80,8 @@ namespace App.Utilits
                 return ConsoleColor.Red;
             else if (logType == Type.BotException)
                 return ConsoleColor.DarkCyan;
+            else if (logType == Type.BotMessage)
+                return ConsoleColor.DarkGreen;
             else
                 return ConsoleColor.White;
         }
