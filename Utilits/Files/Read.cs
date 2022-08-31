@@ -1,47 +1,23 @@
-﻿namespace App.Utilits.Files
+﻿// ------------------------------------------------------------------------------------------------------------ //
+//                                                  class   Read.cs                                             //
+// ------------------------------------------------------------------------------------------------------------ //
+//          Composição do projeto responsável por ler arquivos externos locais a fonte do código.               //
+// ------------------------------------------------------------------------------------------------------------ //
+//  Por Gabriel Ferreira / Zafth                                                                                //
+//  Github: https://github.com/ZafthG                                                                           //
+// ------------------------------------------------------------------------------------------------------------ //
+namespace App.Utilits.Files
 {
     /// <summary>
     /// Estrutura responsável por ler um arquivo externo.
     /// </summary>
     internal class Reader
     {
-        /// <summary>
-        /// Caminho até o arquivo para leitura.
-        /// </summary>
-        private readonly string filePath = "";
+        // ---------------------------------------------------------------------------------------------------- //
+        //  Construtores                                                                                        //
+        #region Constructors
 
-        /// <summary>
-        /// Faz a leitura dos bytes do arquivo.
-        /// </summary>
-        /// <returns>Retorna a cadeia de bytes lidos.</returns>
-        public async Task<byte[]> Read()
-        {
-            try
-            {
-                //  > Cria o Stream responsável por ler o arquivo.
-                //  Perceba que o stream é criado apenas para abrir o arquivo em modo leitura!
-                //  Ele não pode fazer alterações ou criar arquivos.
-                using FileStream _file_stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-
-                //  > Cria um buffer para armazenar os bytes lidos com o tamanho do arquivo.
-                byte[] _buffer = new byte[_file_stream.Length];
-
-                //  > Faz a leitura.
-                _ = await _file_stream.ReadAsync(_buffer);
-
-                //  > Finaliza.
-                _file_stream.Close();
-                return _buffer;
-            }
-            catch (IOException error)
-            {
-                throw new IOException($"Falha na leitura do arquivo '{filePath}':\n{error.Message}.", error);
-            }
-        }
-
-        /// <summary>
-        /// Inicializa uma estrutura de leitura.
-        /// </summary>
+        /// <summary> Inicializa uma estrutura de leitura. </summary>
         /// <param name="filename">Nome completo do arquivo (com extensão).</param>
         /// <param name="directory">Diretório do arquivo (caso não informado, considera o diretório do programa).</param>
         public Reader(string filename, string directory = "<STD>")
@@ -52,7 +28,7 @@
             if (string.IsNullOrEmpty(filename) || string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename), "Falha na leitura de um arquivo de nome nulo.");
             if (string.IsNullOrEmpty(directory) || string.IsNullOrWhiteSpace(directory))
-                throw new ArgumentNullException(nameof(directory), 
+                throw new ArgumentNullException(nameof(directory),
                     $"Falha na leitura do arquivo '{filename}': Nome de diretório nulo.");
             if (directory == "<STD>") directory = Directory.GetCurrentDirectory();
 
@@ -66,6 +42,44 @@
             //  > Verifica a existência do arquivo.
             if (!File.Exists(filePath))
                 throw new ArgumentException($"O arquivo '{filename}' não existe em '{directory}'.", nameof(directory));
+        }
+
+        #endregion
+        // ---------------------------------------------------------------------------------------------------- //
+        //  Variáveis internas de Settings.cs                                                                   //
+        #region Variables
+
+        /// <summary> Caminho até o arquivo para leitura. </summary>
+        private readonly string filePath = "";
+
+        #endregion
+        // ---------------------------------------------------------------------------------------------------- //
+        //  Funções de Settings.cs com retorno.                                                                 //
+        /// <summary> Faz a leitura dos bytes do arquivo. </summary>
+        /// <returns> Retorna a cadeia de bytes lidos. </returns>
+        public async Task<byte[]> Read()
+        {
+            try
+            {
+                //  > Cria o Stream responsável por ler o arquivo.
+                //  Perceba que o stream é criado apenas para abrir o arquivo em modo leitura!
+                //  Ele não pode fazer alterações ou criar arquivos.
+                using FileStream _file_stream = new (filePath, FileMode.Open, FileAccess.Read);
+
+                //  > Cria um buffer para armazenar os bytes lidos com o tamanho do arquivo.
+                byte[] _buffer = new byte[_file_stream.Length];
+
+                //  > Faz a leitura.
+                _ = await _file_stream.ReadAsync(_buffer);
+
+                //  > Finaliza.
+                _file_stream.Close();
+                return _buffer;
+            }
+            catch (IOException error)
+            {
+                throw new Exception($"Falha na leitura do arquivo '{filePath}':\n{error.Message}.", error);
+            }
         }
     }
 }

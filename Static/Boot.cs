@@ -1,4 +1,17 @@
-﻿using App.Utilits;
+﻿// ------------------------------------------------------------------------------------------------------------ //
+//                                              class   Boot.cs                                                 //
+// ------------------------------------------------------------------------------------------------------------ //
+//          Responsável pela inicialização do programa em um ambiente assíncrono. É inicializado a partir       //
+//  da estrutura Boot.(Task) Run() que inicializa a conexão, carrega as configurações e o banco de dados        //
+//  e, por fim, inicia as operações Runtime.                                                                    //
+//                                                                                                              //
+//          A seguinte ordem de execuções é projetada para a situação:                                          //
+//      1.  Carrega as configurações locais a partir do arquivo 'bot.conf' que deve estar presente em seu       //
+//  diretório raiz.                                                                                             //
+//      2.0.    Conecta o bot ao servidor do Discord Apps via Token.                                            //
+//      2.1.    Abre a conexão com o MySQL.                                                                     //
+//
+using App.Utilits;
 namespace App.Static
 {
     /// <summary>
@@ -17,6 +30,12 @@ namespace App.Static
         /// <returns>Retorna ao fechar o serviço.</returns>
         public static async Task Run ()
         {
+            //  > Seguindo o descrito na introdução do script.
+            //  1. Carrega as configurações locais.
+            Log.WriteLine(Log.Type.System, "Carregando arquivo 'bot.conf' . . .");
+            await Settings.Load();
+
+            /*
             //  > Carrega as configurações do servidor.
             Log.WriteLine(Log.Type.System, "Carregando arquivo de configurações . . .");
             await Settings.Load();
@@ -54,6 +73,7 @@ namespace App.Static
 
                 await Global.Execute();
             }
+            */
         }
     }
 }
