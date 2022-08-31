@@ -35,7 +35,11 @@ namespace App.Database
         {
             try
             {
-                Connection = new (Static.Settings.GetMySQL_ConnString);
+                string connString = $"server={Static.Settings.Setting["DB_SERVER"]};" +
+                    $"uid={Static.Settings.Setting["DB_USER"]};" +
+                    $"pwd={Static.Settings.Setting["DB_PASS"]};" +
+                    $"database={Static.Settings.Setting["DB_NAME"]}";
+                Connection = new(connString);
                 await Connection.OpenAsync();
                 Utilits.Log.WriteLine(Utilits.Log.Type.Database, $"Conexão MySQL estabelecida em {DateTime.Now.ToUniversalTime()}");
             }

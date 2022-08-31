@@ -28,16 +28,11 @@ namespace App.Static
         /// Roda o sistema de maneira assíncrona.
         /// </summary>
         /// <returns>Retorna ao fechar o serviço.</returns>
-        public static async Task Run ()
+        public static async Task Run()
         {
             //  > Seguindo o descrito na introdução do script.
             //  1. Carrega as configurações locais.
             Log.WriteLine(Log.Type.System, "Carregando arquivo 'bot.conf' . . .");
-            await Settings.Load();
-
-            /*
-            //  > Carrega as configurações do servidor.
-            Log.WriteLine(Log.Type.System, "Carregando arquivo de configurações . . .");
             await Settings.Load();
 
             //  > Inicializa os eventos em tempo de execução.
@@ -45,7 +40,7 @@ namespace App.Static
 
             //  > Conecta o Marvin ao Discord.
             Log.WriteLine(Log.Type.System, "Conectando 'Marvin' ao Discord . . .");
-            await Global.Marvin.Login(Environment.GetEnvironmentVariable(Settings.GetDiscord_Token));
+            await Global.Marvin.Login(Environment.GetEnvironmentVariable((string) Settings.Setting["E_V_MARVIN_TK"]));
 
             //  > Inicializa o Marvin.
             //  - Carrega a lista de RUs da UFPR.
@@ -73,7 +68,6 @@ namespace App.Static
 
                 await Global.Execute();
             }
-            */
         }
     }
 }

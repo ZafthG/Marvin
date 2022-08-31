@@ -72,7 +72,7 @@ namespace App.Database
             string _sqlCommand = "select * from ru";
             //  > Tenta estabelecer uma conexão MySQL e realizar a consulta.
             int tries = 0;
-            while (tries <= Static.Settings.GetMySql_ConnTries)
+            while (tries <= Convert.ToInt32(Static.Settings.Setting["DB_CONN_TRIES"]))
             {
                 try
                 {
@@ -107,7 +107,7 @@ namespace App.Database
                 {
                     tries++;
                     Utilits.Log.WriteLine(Utilits.Log.Type.Error,
-                        $"Falha ao tentar estabelecer uma conexão MySQL ({tries}/{Static.Settings.GetMySql_ConnTries}): \n" +
+                        $"Falha ao tentar estabelecer uma conexão MySQL ({tries}/{Convert.ToInt32(Static.Settings.Setting["DB_CONN_TRIES"])}): \n" +
                         $"{error.Message}\nNova tentativa em {4 + 3 * (tries / 2)} segundos.");
                     Task.Delay((4 + 3 * (tries / 2)) * 1000).Wait();
                 }
@@ -148,7 +148,7 @@ namespace App.Database
             
             //  > Tenta estabelecer uma conexão MySQL e realizar a consulta.
             int tries = 0;
-            while (tries <= Static.Settings.GetMySql_ConnTries)
+            while (tries <= Convert.ToInt32(Static.Settings.Setting["DB_CONN_TRIES"]))
             {
                 try
                 {
@@ -178,7 +178,7 @@ namespace App.Database
                 {
                     tries++;
                     Utilits.Log.WriteLine(Utilits.Log.Type.Error,
-                        $"Falha ao tentar estabelecer uma conexão MySQL ({tries}/{Static.Settings.GetMySql_ConnTries}): \n"+
+                        $"Falha ao tentar estabelecer uma conexão MySQL ({tries}/{Convert.ToInt32(Static.Settings.Setting["DB_CONN_TRIES"])}): \n"+
                         $"{error.Message}\nNova tentativa em {4 + 3 * (tries / 2)} segundos.");
                     Task.Delay((4 + 3 * (tries / 2)) * 1000).Wait();
                 }

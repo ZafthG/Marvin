@@ -58,7 +58,7 @@ namespace App.Bot
             //  > Verifica se a mensagem menciona o Marvin.
             foreach (SocketUser user in message.MentionedUsers)
             {
-                if (user.Id == Static.Settings.GetBot_Id)
+                if (user.Id == Convert.ToUInt64(Static.Settings.Setting["BOT_ID"]))
                 {
                     //  > Se mencionar o marvin, executa os processos posteriores.
                     if (Process == null) return;
