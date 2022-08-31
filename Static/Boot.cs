@@ -36,6 +36,10 @@ namespace App.Static
             //  > Dá alguns segundos pro bot inicializar.
             await Task.Delay(5000);
 
+            //  > Carrega as guilds.
+            Log.WriteLine(Log.Type.System, "Carregando guilds . . . ");
+            await Global.Marvin.LoadGuildsFrom();
+
             //  > Inicia as operações de Runtime.
             while (true)
             {

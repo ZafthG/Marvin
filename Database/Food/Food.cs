@@ -131,7 +131,7 @@ namespace App.Database
                                 $"[DB:INSERT INTO food] name = {name}");
 
                             //  > Recarrega os dados da comida.
-                            Food _food = new Food(name);
+                            Food _food = new (name);
                             ID = _food.ID;
                             Name = _food.Name;
                             features = _food.features;

@@ -49,23 +49,22 @@ namespace App.Database
             //  > Adiciona as comidas do café da manhã.
             if (Breakfast != null)
             {
-                _builder.Append($"\n**CAFÉ DA MANHÃ**\n```");
+                _builder.Append($"\n**CAFÉ DA MANHÃ**\n");
                 _builder.Append(Breakfast.ToString());
-                _builder.Append("```");
             }
             //  > Adiciona as comidas do almoço.
             if (Lunch != null)
             {
-                _builder.Append($"\n**ALMOÇO**\n```");
+                _builder.Append($"\n**ALMOÇO**\n");
                 _builder.Append(Lunch.ToString());
-                _builder.Append("```");
+                _builder.Append("");
             }
             //  > Adiciona as comidas do jantar.
             if (Dinner != null)
             {
-                _builder.Append($"\n**JANTAR**\n```");
+                _builder.Append($"\n**JANTAR**\n");
                 _builder.Append(Dinner.ToString());
-                _builder.Append("```");
+                _builder.Append("");
             }
 
             //  > Retorna a string construída.

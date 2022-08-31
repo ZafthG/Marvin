@@ -14,11 +14,22 @@ namespace App.Bot
         /// <summary>
         /// Elemento de conexão entre o bot e o Discord.
         /// </summary>
-        public DiscordSocketClient Client { get; private set; }
+        private DiscordSocketClient Client { get; set; }
+
+        /// <summary>
+        /// Lista de servidores atendidos pelo bot.
+        /// </summary>
+        public List<Database.Guild> Guilds { get; set; }
+        /// <summary>
+        /// Lista de canais de texto das guilds do Discord.
+        /// </summary>
+        public List<Database.TextChannel> TextChannels { get; set; }
+
         /// <summary>
         /// Conjunto de funções assíncronas para o processamento de uma mensagem recebida.
         /// </summary>
         public MessageReceiver? Process = null;
+
 
         /// <summary>
         /// Mensagens de log apresentadas pelo bot.
@@ -68,6 +79,7 @@ namespace App.Bot
         /// <returns>Retorna a mensagem que foi enviada.</returns>
         public async Task<IUserMessage> Send(ulong channel_id, string message)
         {
+            //  > Pega o canal.
             IMessageChannel _channel = (IMessageChannel) await Client.GetChannelAsync(channel_id);
             return await Send(_channel, message);
         }
@@ -89,12 +101,35 @@ namespace App.Bot
         }
 
         /// <summary>
+        /// Carrega as Guilds com base na conexão do bot.
+        /// </summary>
+        /// <returns>Lista com as guilds do Discord.</returns>
+        public async Task LoadGuildsFrom()
+        {
+            //  > Lista para retorno.
+            Guilds = new ();
+            //  > Lista as guilds.
+            foreach (SocketGuild guild in Client.Guilds)
+            {
+                Utilits.Log.WriteLine(Utilits.Log.Type.System, $"Adicionando '{guild.Name}' . . . ");
+                //  > Adiciona a Guild lista.
+                Database.Guild _guild = new (guild);
+                Guilds.Add(_guild);
+                //  > Carrega os canais de texto dessa Guild.
+                TextChannels.AddRange(await _guild.GetTextChannels());                
+            }
+        }
+
+        /// <summary>
         /// Instância uma nova base de conexão entre o serviço e o discord.
         /// </summary>
         public DiscordBase()
         {
+            //  > Instância a lista de servidores atendidos.
+            Guilds = new();
+            TextChannels = new ();
             //  > Instância a conexão e atribui as funções aos delegates.
-            Client = new DiscordSocketClient();
+            Client = new ();
             Client.Log += Log;
             Client.MessageReceived += MessageReceive;
         }

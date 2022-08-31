@@ -45,11 +45,15 @@ namespace App.Database
             //  > Prepara o envio.
             StringBuilder _const = new ();
 
-            _const.Append($"Bom dia {Static.Global.Marvin.Client.GetGuild(1009142650156355585).EveryoneRole.Mention}. Hoje teremos o seguinte cardápio por R$ 1.30 no {Name}: \n");
+            _const.Append($"Bom dia. Hoje teremos o seguinte cardápio por R$ 1.30 no {Name}: \n");
             _const.Append(TodayMenu.ToString());
 
-            //  > Envia para o discord.
-            _ = Static.Global.Marvin.Send(1009142650709999688, _const.ToString());
+            //  > Pega os canais para envio.
+            IEnumerable<TextChannel> sendChannels = Static.Global.Marvin.TextChannels
+                .Where(channel => (channel.TAG == "TEST" /*|| channel.TAG == $"RU_{Tag}"*/));
+            //  > Envia as mensagens.
+            foreach (TextChannel channel in sendChannels)
+                _ = channel.Send(_const.ToString());
 
             //  > Finaliza.
             return Task.CompletedTask;
